@@ -1,9 +1,10 @@
 /**
- * PARAMETER LOOKUPS*
+ * METHOD LOOKUPS
  * This file demonstrates how methods are found, according to
  * type.
  * 
- * Method lookups are dynamic.* * 
+ * Method lookups are dynamic, and parameters are checked for
+ * static type.
  */
 
 public class ParameterLookups {
@@ -52,27 +53,20 @@ public class ParameterLookups {
 		return d.noise;
 	}
 	
+	// print string
 	public static void print(String msg) {
 		System.out.println(msg);
-	}
-	
-	public static void print(boolean bool) {
-		System.out.println(bool);
 	}
 }
 
 class Animal {
 	public String name;
-	public boolean isAlive;
-	public String noise;
 	
 	public Animal(String _name) {
-		isAlive = true;
 		name = _name;
 	}
 	
 	public String die() {
-		isAlive = false;
 		return "Animal died";
 	}
 	
@@ -81,17 +75,17 @@ class Animal {
 	}
 
 	public String attack(Animal a) {
-		a.die();
 		return "Animal attacked animal.";
 	}
 
 	public String attack(Dog d) {
-		d.die();
 		return "Animal attacked dog.";
 	}
 }
 
 class Dog extends Animal {
+	public String noise;
+	
 	public Dog(String name) {
 		super(name);
 		noise = "woof";
@@ -102,12 +96,10 @@ class Dog extends Animal {
 	}
 	
 	public String die() {
-		super.die();
 		return "Dog died";
 	}
 	
 	public String attack(Animal a) {
-		a.die();
 		return "Dog attacked animal.";
 	}
 }
