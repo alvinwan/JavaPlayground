@@ -10,7 +10,7 @@ public class HiddenFields {
 	public static void main(String args[]) {
 
 		/**
-		 * Notice that name is defined twice, in Ship AND in
+		 * Notice that name is DEFINED TWICE, in Ship AND in
 		 * SpaceShip. Each variable is "localized," so that
 		 * setting the value of name in Ship will do nothing
 		 * for the variable "name" in SpaceShip.
