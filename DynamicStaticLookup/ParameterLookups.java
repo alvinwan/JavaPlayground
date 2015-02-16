@@ -11,6 +11,8 @@ public class ParameterLookups {
 		Dog d = new Dog("Douglas");
 		print(getName(m)); // Uses getName(Animal a) - no method for Monkey
 		print(getName(d)); // Uses getName(Dog d)
+		print(((Animal) d).resurrect()); // dynamic lookup on method call
+//		print(((Animal) d).bark()); // static lookup on compile (will fail compilation)
 	}
 
 	/**
@@ -35,6 +37,10 @@ public class ParameterLookups {
 	public static void print(String msg) {
 		System.out.println(msg);
 	}
+	
+	public static void print(boolean bool) {
+		System.out.println(bool);
+	}
 }
 
 class Animal {
@@ -50,6 +56,10 @@ class Animal {
 	public void die() {
 		isAlive = false;
 	}
+	
+	public String resurrect() {
+		return "No way josey";
+	}
 }
 
 class Monkey extends Animal {
@@ -59,11 +69,24 @@ class Monkey extends Animal {
 		super(name);
 		noise = "hoohoohooo";
 	}
+	
+	public String hoot() {
+		return noise;
+	}
 }
 
 class Dog extends Animal {
 	public Dog(String name) {
 		super(name);
 		noise = "woof";
+	}
+	
+	public String bark() {
+		return noise;
+	}
+	
+	public String resurrect() {
+		isAlive = true;
+		return "Successfully resurrected.";
 	}
 }
