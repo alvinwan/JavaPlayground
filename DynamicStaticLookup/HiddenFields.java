@@ -53,6 +53,7 @@ class Ship {
 	}
 	
 	public Ship(boolean _isDamaged) {
+		name = "Crispy";
 		isDamaged = _isDamaged;
 	}
 	
