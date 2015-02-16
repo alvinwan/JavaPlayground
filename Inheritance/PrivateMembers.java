@@ -13,11 +13,21 @@
 
 public class PrivateMembers {
 	public static void main(String args[]) {
+
+		/**
+		 * Basic functionality of private members: they
+		 * may not be accessed globally. However, they
+		 * may be accessed from within the class itself.
+		 */
 		
 		Burger b = new Burger(true);
 //		b.nullifyCondiment(1); // normal behavior - private method cannot be accessed globally
 		b.removeCondiment(1); // normal behavior - private method can be accessed from removeCondiment
-		System.out.println(b.hasBread); // normal behavior - priavte variable cannot be accessed globally
+		System.out.println(b.hasBread); // normal behavior - private variable cannot be accessed globally
+
+		/**
+		 * *
+		 */
 		
 		BigBurger bb = new BigBurger();
 		b.removeCondiment(1); // removeCondiment is inherited from Burger so removeCondiment has access to private Burger.nullifyCondiment -> valid call
@@ -80,9 +90,9 @@ class BigBurger extends Burger {
 	}
 	
 	public void toggleBread() {
-//		hasBread = !hasBread; // compile-time error: variable is NOT inherited
+//		hasBread = !hasBread; // compile-time error: variable is NOT inherited, compiler notes that variable is declared private
 		
-//		if (hasBread)
+//		if (hasBread) // compile-time error:
 //			removeBread();
 //		else
 //			addBread();
