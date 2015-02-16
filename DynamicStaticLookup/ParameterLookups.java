@@ -2,37 +2,45 @@
  * PARAMETER LOOKUPS*
  * This file demonstrates how methods are found, according to
  * type.
+ * 
+ * Method lookups are dynamic.* * 
  */
 
 public class ParameterLookups {
 	public static void main(String args[]) {
+		
 		Animal a = new Animal("General");
-		Monkey m = new Monkey("Melody");
 		Dog d = new Dog("Douglas");
-		print(getName(m)); // Uses getName(Animal a) - no method for Monkey
-		print(getName(d)); // Uses getName(Dog d)
-		print(((Animal) d).resurrect()); // dynamic lookup on method call (dog's resurrect)
-//		print(((Animal) d).bark()); // static lookup on compile (will fail compilation, Animal has no bark)
-		
-		Animal d2 = new Dog("David");
-//		print(d2.bark()); // fails compilation (no bark method in Animal)
-		print(d2.resurrect());
-		
-		Animal a3 = new Animal("Austin");
-		Animal d3 = new Dog("Darius");
-		print(d3.attack(a3)); // parameter's static type used for method lookup (Animal attack Animal)
-		print(d3.attack(d3)); // parameter's static type used for method lookup (Animal attack Animal)
-		print(d3.attack((Dog) d3)); //
-	}
 
-	/**
-	 * Returns the name of the specified Animal. All subclasses
-	 * of Animal are also accepted as valid paramters.
-	 * @param a : Animal object
-	 * @return : name
-	 */
-	public static String getName(Animal a) {
-		return a.name;
+		// METHOD LOOKUP
+		
+		/*
+		In compile-time, the static type of "d" (temporarily
+		casted to Animal) will determine whether or not the
+		compilation is successful. In run-time, the dynamic
+		type of "d" (Dog), will be used to determine the 
+		method called.
+		 */
+		print(((Animal) d).die()); // dog.die called
+//		print(((Animal) d).bark()); // fails on compile-time - Animal has no bark method
+		
+		// PARAMETER LOOKUP
+
+		Animal d2 = new Dog("David");
+		
+		/*
+		For a parameter, only the static type matters. If
+		there is no method signature accepting parameter Dog, 
+		will look for method accepting parameter Animal.
+		 */
+		print(Animal.getName(a)); // static type Animal -> OK
+		print(Animal.getName(d)); // static type Dog, but no method signature with Dog -> use method accepting Animal
+		print(d.attack(d2)); // static type Animal -> use method accepting Animal
+
+		print(d.attack(a)); // a is Animal, and d is Dog -> Dog attacked Animal
+		print(d2.attack(d2)); // compile-time: does Animal.attack(Animal...) exist? run-time: uses dog.attack(Animal ...) if available or animal.attack(Animal...)
+ 		print(d2.attack((Dog) d2)); // compile-time: does Animal.attack(Dog...) exist? run-time uses dog.attack(Dog...) if available or animal.attack(Dog...)
+		print(((Animal) d2).attack(d2)); // (temporary) static type of d2 only used during compile-time
 	}
 
 	/**
@@ -63,12 +71,13 @@ class Animal {
 		name = _name;
 	}
 	
-	public void die() {
+	public String die() {
 		isAlive = false;
+		return "Animal died";
 	}
 	
-	public String resurrect() {
-		return "No way josey";
+	public static String getName(Animal a) {
+		return a.name;
 	}
 
 	public String attack(Animal a) {
@@ -82,20 +91,6 @@ class Animal {
 	}
 }
 
-class Monkey extends Animal {
-	boolean isAlive;
-	
-	public Monkey(String name) {
-		super(name);
-		noise = "hoohoohooo";
-	}
-	
-	public String attack(Dog d) {
-		d.die();
-		return "Monkey attacked dog";
-	}
-}
-
 class Dog extends Animal {
 	public Dog(String name) {
 		super(name);
@@ -106,13 +101,13 @@ class Dog extends Animal {
 		return noise;
 	}
 	
-	public String resurrect() {
-		isAlive = true;
-		return "Successfully resurrected.";
+	public String die() {
+		super.die();
+		return "Dog died";
 	}
 	
-	public String attack(Dog d) {
-		d.die();
-		return "Dog attacked dog.";
+	public String attack(Animal a) {
+		a.die();
+		return "Dog attacked animal.";
 	}
 }
