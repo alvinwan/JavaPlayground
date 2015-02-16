@@ -1,13 +1,14 @@
 /**
  * METHOD LOOKUPS
  * This file demonstrates how methods are found, according to
- * type.
+ * type. Namely, method lookups are dynamic, and parameters
+ * are checked for static type.
  * 
- * Method lookups are dynamic, and parameters are checked for
- * static type.
+ * @author Alvin Wan
+ * @website alvinwan.com
  */
 
-public class ParameterLookups {
+public class MethodLookups {
 	public static void main(String args[]) {
 		
 		Animal a = new Animal("General");
