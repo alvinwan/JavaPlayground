@@ -29,7 +29,7 @@ public class HiddenFields {
 		spaceship2.getName(); // getName() defined in Ship, which has name of "Catalina"
 
 		/**
-		 *
+		 * 
 		 */
 	}
 	

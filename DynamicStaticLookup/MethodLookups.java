@@ -24,7 +24,7 @@ public class MethodLookups {
 		method called.
 		 */
 		print(((Animal) d).die()); // dog.die called
-//		print(((Animal) d).bark()); // fails on compile-time - Animal has no bark method
+//		print(((Animal) d).bark()); // fails on compile-time, even though Dog has bark method - Animal has no bark method
 		
 		// PARAMETER LOOKUP
 
