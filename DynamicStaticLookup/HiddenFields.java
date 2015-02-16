@@ -26,6 +26,7 @@ public class HiddenFields {
 
 		print(spaceship2.name); // name is not defined for the SpaceShip context (returns null)
 		spaceship2.getName(); // getName() defined in Ship, which has name of "Catalina"
+		spaceship2.getParentName(); // getParentName() defined in subclass, but accesses parent name variable -> print "Catalina"
 
 		/**
 		 * This is a strange form of abstraction, which
@@ -86,8 +87,8 @@ class SpaceShip extends Ship {
 		isFlying = false;
 	}
 	
-	public SpaceShip(boolean _isDamaged) {
-		super(_isDamaged);
+	public SpaceShip(boolean isDamaged) {
+		super(isDamaged);
 	}
 	
 	public void isDamaged() {
@@ -106,5 +107,9 @@ class SpaceShip extends Ship {
 	public void land() {
 		isFlying = false;
 		System.out.println("Landed!");
+	}
+	
+	public void getParentName() {
+		System.out.println(super.name); // suggested by Paul Legler
 	}
 }
