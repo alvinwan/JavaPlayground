@@ -11,8 +11,18 @@ public class ParameterLookups {
 		Dog d = new Dog("Douglas");
 		print(getName(m)); // Uses getName(Animal a) - no method for Monkey
 		print(getName(d)); // Uses getName(Dog d)
-		print(((Animal) d).resurrect()); // dynamic lookup on method call
-//		print(((Animal) d).bark()); // static lookup on compile (will fail compilation)
+		print(((Animal) d).resurrect()); // dynamic lookup on method call (dog's resurrect)
+//		print(((Animal) d).bark()); // static lookup on compile (will fail compilation, Animal has no bark)
+		
+		Animal d2 = new Dog("David");
+//		print(d2.bark()); // fails compilation (no bark method in Animal)
+		print(d2.resurrect());
+		
+		Animal a3 = new Animal("Austin");
+		Animal d3 = new Dog("Darius");
+		print(d3.attack(a3)); // parameter's static type used for method lookup (Animal attack Animal)
+		print(d3.attack(d3)); // parameter's static type used for method lookup (Animal attack Animal)
+		print(d3.attack((Dog) d3)); //
 	}
 
 	/**
@@ -60,6 +70,16 @@ class Animal {
 	public String resurrect() {
 		return "No way josey";
 	}
+
+	public String attack(Animal a) {
+		a.die();
+		return "Animal attacked animal.";
+	}
+
+	public String attack(Dog d) {
+		d.die();
+		return "Animal attacked dog.";
+	}
 }
 
 class Monkey extends Animal {
@@ -70,8 +90,9 @@ class Monkey extends Animal {
 		noise = "hoohoohooo";
 	}
 	
-	public String hoot() {
-		return noise;
+	public String attack(Dog d) {
+		d.die();
+		return "Monkey attacked dog";
 	}
 }
 
@@ -88,5 +109,10 @@ class Dog extends Animal {
 	public String resurrect() {
 		isAlive = true;
 		return "Successfully resurrected.";
+	}
+	
+	public String attack(Dog d) {
+		d.die();
+		return "Dog attacked dog.";
 	}
 }
