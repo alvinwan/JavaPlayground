@@ -22,17 +22,22 @@ public class PrivateMembers {
 		
 		Burger b = new Burger(true);
 //		b.nullifyCondiment(1); // normal behavior - private method cannot be accessed globally
-		b.removeCondiment(1); // normal behavior - private method can be accessed from removeCondiment
-		System.out.println(b.hasBread); // normal behavior - private variable cannot be accessed globally
+		b.removeCondiment(1); // normal behavior - private method can be accessed from removeCondiment -> prints "Removing..."
+//		System.out.println(b.hasBread); // normal behavior - private variable cannot be accessed globally
 
 		/**
-		 * *
+		 * Private members are not inherited, and may NOT
+		 * be accessed from the subclass. HOWEVER, if a
+		 * method is inherited from the parent class, that
+		 * method can access all private members of the parent
+		 * class.
 		 */
 		
 		BigBurger bb = new BigBurger();
 		b.removeCondiment(1); // removeCondiment is inherited from Burger so removeCondiment has access to private Burger.nullifyCondiment -> valid call
-		b.toggleBread(); // toggleBread is overridden in BigBurger so toggleBread does not have access to addBread(), removeBread(), or hasBread -> invalid call
+		b.toggleBread(); // toggleBread is overridden in BigBurger so toggleBread does not have access to addBread(), removeBread(), or hasBread -> (see below)
 		
+		// See below for demonstrations that failed the compiler.
 	}
 	
 	public static void print(String msg) {
@@ -47,7 +52,7 @@ class Burger {
 	
 	public Burger(boolean _hasBread) {
 		hasBread = _hasBread;
-		condiments = (_hasBread) ? new String[]{"meat","cheese","lettuce"} : new String[0];
+		condiments = (_hasBread) ? new String[]{"meat","cheese","lettuce"} : new String[0]; // ternary operator: see http://docs.oracle.com/javase/tutorial/java/nutsandbolts/op2.html
 	}
 	
 	private void nullifyCondiment(int i) {
@@ -78,8 +83,8 @@ class BigBurger extends Burger {
 	int i;
 	
 	public BigBurger() {
-		i = 0;
 		super(true);
+		i = 0;
 	}
 	
 	public void simplify() {
@@ -92,7 +97,7 @@ class BigBurger extends Burger {
 	public void toggleBread() {
 //		hasBread = !hasBread; // compile-time error: variable is NOT inherited, compiler notes that variable is declared private
 		
-//		if (hasBread) // compile-time error:
+//		if (hasBread) // compile-time error: compiler simply cannot find method
 //			removeBread();
 //		else
 //			addBread();
