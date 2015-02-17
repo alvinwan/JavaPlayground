@@ -42,7 +42,7 @@ public class MethodLookups {
 		print(d.attack(a)); // a is Animal, and d is Dog -> Dog attack Animal
 		print(d2.attack(d2)); // compile-time: does Animal.attack(Animal...) exist? run-time: uses dog.attack(Animal ...) if available or animal.attack(Animal...) -> Dog attack animal.
  		print(d2.attack((Dog) d2)); // compile-time: does Animal.attack(Dog...) exist? run-time uses dog.attack(Dog...) if available or animal.attack(Dog...) -> Animal attack dog.
-		print(((Animal) d2).attack(d2)); // (temporary) static type of d2 only used during compile-time
+		print(((Dog) d2).attack(d2)); // (temporary) static type of d2 only used during compile-time -> Dog attack dog.
 	}
 
 	/**
