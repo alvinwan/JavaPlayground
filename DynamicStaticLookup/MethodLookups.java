@@ -36,7 +36,7 @@ public class MethodLookups {
 		will look for method accepting parameter Animal.
 		 */
 		print(Animal.getName(a)); // static type Animal -> OK
-		print(Animal.getName(d)); // static type Dog, but no method signature with Dog -> use method accepting Animal
+		print(Animal.getName(d)); // static type Dog, but no method that accepts Dog as a parameter -> use method accepting Animal
 		print(d.attack(d2)); // static type Animal -> use method accepting Animal
 
 		print(d.attack(a)); // a is Animal, and d is Dog -> Dog attacked Animal
