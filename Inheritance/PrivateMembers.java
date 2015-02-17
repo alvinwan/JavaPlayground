@@ -35,6 +35,7 @@ public class PrivateMembers {
 		
 		BigBurger bb = new BigBurger();
 		b.removeCondiment(1); // removeCondiment is inherited from Burger so removeCondiment has access to private Burger.nullifyCondiment -> valid call
+		System.out.println(b.condiments[1]); // null
 		b.toggleBread(); // toggleBread is overridden in BigBurger so toggleBread does not have access to addBread(), removeBread(), or hasBread -> (see below)
 		
 		// See below for demonstrations that failed the compiler.
