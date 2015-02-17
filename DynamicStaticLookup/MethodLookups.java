@@ -39,9 +39,9 @@ public class MethodLookups {
 		print(Animal.getName(d)); // static type Dog, but no method that accepts Dog as a parameter -> use method accepting Animal
 		print(d.attack(d2)); // static type Animal -> use method accepting Animal
 
-		print(d.attack(a)); // a is Animal, and d is Dog -> Dog attacked Animal
-		print(d2.attack(d2)); // compile-time: does Animal.attack(Animal...) exist? run-time: uses dog.attack(Animal ...) if available or animal.attack(Animal...)
- 		print(d2.attack((Dog) d2)); // compile-time: does Animal.attack(Dog...) exist? run-time uses dog.attack(Dog...) if available or animal.attack(Dog...)
+		print(d.attack(a)); // a is Animal, and d is Dog -> Dog attack Animal
+		print(d2.attack(d2)); // compile-time: does Animal.attack(Animal...) exist? run-time: uses dog.attack(Animal ...) if available or animal.attack(Animal...) -> Dog attack animal.
+ 		print(d2.attack((Dog) d2)); // compile-time: does Animal.attack(Dog...) exist? run-time uses dog.attack(Dog...) if available or animal.attack(Dog...) -> Animal attack dog.
 		print(((Animal) d2).attack(d2)); // (temporary) static type of d2 only used during compile-time
 	}
 
@@ -76,11 +76,11 @@ class Animal {
 	}
 
 	public String attack(Animal a) {
-		return "Animal attacked animal.";
+		return "Animal attack animal.";
 	}
 
 	public String attack(Dog d) {
-		return "Animal attacked dog.";
+		return "Animal attack dog.";
 	}
 }
 
@@ -101,6 +101,6 @@ class Dog extends Animal {
 	}
 	
 	public String attack(Animal a) {
-		return "Dog attacked animal.";
+		return "Dog attack animal.";
 	}
 }
