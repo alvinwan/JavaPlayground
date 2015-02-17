@@ -59,8 +59,8 @@ public class MethodLookups {
 		print(((Animal) d).die()); // casting a Dog to an Animal achieves the same effect -> Animal died
 		
 		//print(d2.bark()); // same rules apply for compile-time default to static type -> compile-error: no bark method in Animal!
-		print(d2.noise(d)); // normal behavior - inherits static method from Animal -> Dog.noise() -> woof
-		print(d.noise(d)); // normal behavior - inherits static method from Animal -> Dog.noise() -> woof
+		print(d2.noise(d)); // normal behavior - inherits static method from Animal -> dog.noise(Dog d) -> woof
+		print(d.noise(d)); // normal behavior - inherits static method from Animal -> dog.noise(Dog d) -> woof
 	}
 
 	/**
