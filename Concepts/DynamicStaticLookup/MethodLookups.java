@@ -61,6 +61,8 @@ public class MethodLookups {
 		//print(d2.bark()); // same rules apply for compile-time default to static type -> compile-error: no bark method in Animal!
 		print(d2.noise(d)); // normal behavior - inherits static method from Animal -> dog.noise(Dog d) -> woof
 		print(d.noise(d)); // normal behavior - inherits static method from Animal -> dog.noise(Dog d) -> woof
+		
+		print(d2.resurrect()); // SEE BELOW - nonstatic method cannot override static method
 	}
 
 	/**
@@ -87,6 +89,10 @@ class Animal {
 	
 	public static String die() {
 		return "Animal died";
+	}
+	
+	public static String resurrect() {
+		return "Animal resurrected";
 	}
 	
 	public static String getName(Animal a) {
@@ -121,6 +127,10 @@ class Dog extends Animal {
 	public static String die() {
 		return "Dog died";
 	}
+	
+//	public String resurrect() {
+//		return "Dog resurrected";
+//	}
 	
 	public String attack(Animal a) {
 		return "Dog attack animal.";
