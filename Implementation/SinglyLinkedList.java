@@ -1,3 +1,14 @@
+/**
+ * SINGLY LINKED LIST
+ * All methods are written in linear time, of O(n)
+ * where n is the number of elements in the list. 
+ * 
+ * @author Alvin Wan
+ * @website alvinwan.com
+ * Note that this has been written millions of times before;
+ * there's nothing special about my version.
+ */
+
 public class SinglyLinkedList implements List {
     public SNode sentinel;
     
@@ -38,6 +49,7 @@ public class SinglyLinkedList implements List {
     /**
      * Inserts a given value into the singly-linked list:
      *  - inserts at the end if the index exceeds array length
+     *  - inserts at 0th index if index if negative
      * @param i: int
      * @param value: int
      */
@@ -51,18 +63,21 @@ public class SinglyLinkedList implements List {
     /**
      * Removes, from the singly-linked list, the element at
      * the specified index, or terminate if the index given
-     * is beyond the scope of the linked-list.
+     * is invalid.
      * @param i: int
      */
     public void remove(int i) {
-        if (i < 0 || i >= sentinel.head) {
-            return;
-        }
+        if (i < 0 || i >= sentinel.head) return;
         SNode pointer = get(i-1);
         pointer.next = pointer.next.next;
         sentinel.head-= 1;
     }
-    
+
+    /**
+     * Convert singly-linked list into a string representation
+     * for testing use.
+     * @return String
+     */
     public String toString() {
         SNode pointer = sentinel.next;
         StringBuilder str = new StringBuilder("[");
@@ -73,10 +88,12 @@ public class SinglyLinkedList implements List {
         return str.append("]").toString();
     }
     
+    /* Making insertFront easier with general insert function */
     public void insertFront(int value) {
         insert(0, value);
     }
     
+    /* Making insertBack easier with insert and sentinel (size) */
     public void insertBack(int value) {
         insert(sentinel.head, value);
     }
@@ -96,6 +113,13 @@ public class SinglyLinkedList implements List {
         
         s.insertBack(5);
         System.out.println("InsertBack:     "+s.toString());
+        
+        // special cases
+        s.insert(-1, 0);
+        System.out.println("Insert at i=-1: "+s.toString());
+        
+        s.remove(-1);
+        System.out.println("No remove i=-1: "+s.toString());
     }
 }
 
