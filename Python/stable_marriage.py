@@ -96,8 +96,6 @@ def stable_pairing(boys, girls, verbose=False):
 
     finished, i = False, 0
     while not finished:
-        if i > 5:
-            break
         shout('='*30, 'Day %d' % i, '='*30)
         for boy in boys.values():
             boy.propose()
